@@ -16,7 +16,7 @@ import CrisisAlert from './CrisisAlert.js';
 import newChatIcon from "./assets/new_chat_icon.png";
 import MoodIndicator from './MoodIndicator.js';
 import capybaraStaticImage from './assets/capybara.png';
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "https://genai-hackathon-irwm.onrender.com";
 const ToastNotification = ({ message }) => {
   if (!message) {
     return null;
