@@ -376,4 +376,6 @@ def checkin(user_message):
         return jsonify({"type": "text", "content": f"Sorry, I couldn’t find a game for you 😔 ({e})\nCan I help with this or something else? 😊"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))  
+    app.run(host="0.0.0.0", port=port)
