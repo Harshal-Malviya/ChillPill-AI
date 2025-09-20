@@ -1,0 +1,66 @@
+.daily-goals-container {
+  background-color: #f7f5ff;
+  border-radius: 16px;
+  padding: 15px 20px;
+  margin: 0 auto 20px auto;
+  width: 95%;
+  max-width: 800px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.goals-title {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #21005D;
+  text-align: center;
+}
+
+.goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.goal-item:hover {
+  background-color: #f0ebff;
+}
+
+.goal-item input[type="checkbox"] {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+  accent-color: #6750A4;
+}
+
+.goal-item .goal-text {
+  transition: text-decoration 0.3s, color 0.3s;
+}
+
+.goal-item.completed .goal-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.app.dark-mode .daily-goals-container {
+    background-color: #282828;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+.app.dark-mode .goals-title {
+    color: #EADDFF;
+}
+.app.dark-mode .goal-item:hover {
+    background-color: #3a3a3a;
+}
+.app.dark-mode .goal-item.completed .goal-text {
+    color: #777;
+}

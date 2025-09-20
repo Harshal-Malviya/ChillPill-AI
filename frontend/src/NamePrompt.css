@@ -1,0 +1,212 @@
+/* Add this to your main index.css or import it */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.name-prompt-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* New: Animated gradient background */
+ background: linear-gradient(
+    135deg,
+    #d6c8ff,  /* soft lavender */
+    #b5a9f5,  /* pastel violet */
+    #ada5d4,  /* light sky blue */
+    #fbc6eb   /* pastel pink */
+  );  background-size: 400% 400%;
+  animation: gradient-flow 20s ease infinite;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.name-prompt-container.fade-out {
+  opacity: 0;
+}
+
+/* New: Glassmorphism effect */
+.name-prompt-box {
+  background: rgba(255, 255, 255, 0.85); /* More solid white with slight translucency */
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  padding: 48px 52px;
+  border-radius: 28px; /* More expressive rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 480px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.name-prompt-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.name-prompt-box h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #21005D; /* Dark expressive purple */
+  margin-bottom: 10px;
+}
+
+.name-prompt-box p {
+  font-size: 1rem;
+  color: #4a4458; /* Neutral expressive tone */
+  margin-bottom: 28px;
+}
+
+.name-prompt-box input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  outline: none;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 24px;
+  color: #21005D;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.name-prompt-box input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.name-prompt-box input:focus {
+  border-color: #6750A4; /* Material 3 Primary */
+  box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.25);
+}
+
+.name-prompt-box button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #6750A4, #9c6efb); /* Purple expressive gradient */
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+.name-prompt-box button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 22px rgba(103, 80, 164, 0.4);
+}
+
+.name-prompt-box button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 12px rgba(103, 80, 164, 0.3);
+}
+
+/* --- Animations --- */
+
+/* New: Dynamic background animation */
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Updated: Smoother swoop-in animation */
+.swoop-in {
+  animation: swoopIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes swoopIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.material-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* don’t block clicks */
+  z-index: 2; /* above gradient, below box */
+}
+
+/* Common shape styling */
+.shape {
+  position: absolute;
+  opacity: 0.7;
+  animation-duration: 80s; /* very slow */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+  filter: drop-shadow(0 0 40px rgba(0,0,0,0.2));
+  
+}
+
+/* Top-left big shape */
+.shape1 {
+  top: -10%;
+  left: -10%;
+  width: 500px;
+  animation-name: rotateClock;
+}
+
+/* Top-right big shape */
+.shape2 {
+  top: -15%;
+  right: -15%;
+  width: 550px;
+  animation-name: rotateAnti;
+}
+
+/* Bottom-left big shape */
+.shape3 {
+  bottom: -15%;
+  left: -15%;
+  width: 520px;
+  animation-name: rotateClock;
+}
+
+/* Rotations */
+@keyframes rotateClock {
+  from { transform: rotate(0deg) scale(1.05); }
+  to   { transform: rotate(360deg) scale(1.05); }
+}
+
+@keyframes rotateAnti {
+  from { transform: rotate(0deg) scale(1.05); }
+  to   { transform: rotate(-360deg) scale(1.05); }
+}
+
+/* Keep prompt box above */
+.name-prompt-box {
+  position: relative;
+  z-index: 5;
+}
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(10deg); }
+}
+
+@keyframes floatSide {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(25px) rotate(-10deg); }
+}
+
+.shape1 { animation: floatUpDown 20s ease-in-out infinite, rotateClock 80s linear infinite; }
+.shape2 { animation: floatSide 25s ease-in-out infinite, rotateAnti 90s linear infinite; }
+.shape3 { animation: floatUpDown 30s ease-in-out infinite, rotateClock 100s linear infinite; }

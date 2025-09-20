@@ -1,0 +1,68 @@
+.crisis-alert-container {
+  background-color: #fff0f0;
+  border: 2px solid #b00020;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 90%;
+  align-self: center;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(176, 0, 32, 0.2);
+}
+
+.crisis-header {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #b00020;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.crisis-content {
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.helplines-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.helpline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.helpline-name {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #1c1b1f;
+}
+
+.call-now-button {
+  background-color: #2e7d32;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.call-now-button:hover {
+  background-color: #1b5e20;
+}
+
+.crisis-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  color: #555;
+}

@@ -1,0 +1,1057 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #f8f9fb;
+  color: #1C1B1F;
+  overflow: hidden;
+}
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  transition: background-color 0.5s ease;
+  overflow: hidden; /* <-- Add this line */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: rgba(237, 217, 243, 0.75);
+  backdrop-filter: blur(20px);
+  color: #1C1B1F;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 28px 28px 0;
+  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #21005D;
+  background: linear-gradient(45deg, #6750A4, #9A82DB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.new-chat {
+  background: linear-gradient(135deg, #6750A4, #7F67BE);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(103, 80, 164, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+  margin-bottom: 18px;
+}
+
+.new-chat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(103, 80, 164, 0.35);
+  background: linear-gradient(135deg, #7F67BE, #9A82DB);
+}
+
+
+/* Chat History Styles */
+.chat-history {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto; /* Allow scrolling for long lists */
+  flex-grow: 1; /* Take up remaining vertical space */
+}
+
+.history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.history-item {
+  flex: 1;
+  background: #fffffff7;
+  color: #1C1B1F;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;   
+  display: flex;
+  align-items: center;
+  transition: background 0.4s ease, transform 0.3s ease;
+  justify-content: space-between;
+}
+
+
+.history-item:hover {
+  background: rgba(103, 80, 164, 0.08);
+  transform: translateX(2px);
+}
+/* Emoji background */
+.history-item::before {
+  content: "✨ 💬 🌙 ⭐ ✨ 💬 🌙 ⭐";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200%;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.187);
+  white-space: nowrap;
+  transform: translateY(-50%);
+  animation: emoji-slide 15s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app.dark-mode .history-item::before {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+/* Slide animation */
+@keyframes emoji-slide {
+  0% { transform: translateX(0) translateY(-50%); }
+  100% { transform: translateX(-50%) translateY(-50%); }
+}
+
+/* Chat Area */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: background 0.5s ease;
+  margin-left: 70px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  /* We still need top padding, but slightly less is okay */
+  padding: 70px 10px 10px 10px; 
+  display: flex;
+  flex-direction: column;
+  /* By removing "justify-content", messages will stack from the top again */
+}
+.message {
+  max-width: 70%;
+  padding: 14px 18px;
+  border-radius: 28px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.message.fade-in-message {
+  opacity: 0;
+  animation: fadeInMessage 0.5s ease-in-out forwards;
+}
+
+.message.user {
+  background: #E8F5E9;
+  color: #1B5E20;
+  align-self: flex-end;
+}
+
+.message.bot {
+  background: #f2f0ff;
+  color: #1C1B1F;
+  align-self: flex-start;
+}
+
+/* Main App Fade-In Animation */
+.fade-in {
+  animation: fadeIn 0.8s 0.2s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message p {
+  margin: 0;
+}
+
+.message ul {
+  padding-left: 20px;
+  margin: 8px 0 0 0;
+}
+
+.message li {
+  margin-bottom: 4px;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: #f5f5f5;
+  max-width: 70%;
+  min-width: 220px;
+  min-height: 60px;
+  align-self: flex-start;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.skeleton .bar {
+  height: 16px;
+  width: 90%;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f5f5f5 37%,
+    #e0e0e0 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton .bar.short {
+  width: 60%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.welcome-message {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #6750A4;
+  text-align: center;
+  padding: 20px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.input-bar {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  transition: all 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0);
+}
+
+.input-bar .send-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+   background-color: #e0e0e0;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  
+}
+
+.input-bar .send-button:hover {
+  background-color: #574089;
+  transform: scale(1.1);
+}
+
+.input-bar .send-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(0);
+}
+
+.input-bar input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid #ccccccce;
+  outline: none;
+  font-size: 15px;
+  transition: 0.2s;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.input-bar input:focus {
+  border-color: #6750A4;
+  box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
+   animation: pulse-glow 2s infinite alternate;
+}
+/* Keyframe animation for the pulse */
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 0 10px 2px rgba(154, 130, 219, 0.2);
+  }
+  to {
+    box-shadow: 0 0 10px 5px rgba(154, 130, 219, 0.5);
+  }
+}
+/* Keep the hover effect for the active state */
+.input-bar .send-button.active:hover {
+  background-color: #574089;
+}
+.input-bar .send-button.active {
+  background-color: #6750A4; /* The vibrant, active color */
+  transform: scale(1.1); /* Pop out slightly */
+  cursor: pointer;
+}
+
+.universal-wrapper {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EADDFF;
+  border: none;
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.25s, transform 0.25s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.toggle-button:hover {
+  background: #D0BCFF;
+}
+
+.toggle-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.universal-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.universal-options.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  margin: 6px;
+  border: none;
+  border-radius: 999px;
+  background: #e9e0ff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.pill-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.pill:hover {
+  background: #e6cdff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.app.dark-mode {
+  background: #121212;
+  color: #E0E0E0;
+}
+
+.app.dark-mode .sidebar {
+  background: #1F1F1F;
+  box-shadow: 2px 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .new-chat {
+  background: #333;
+  color: #E0E0E0;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .new-chat:hover {
+  background: #444;
+}
+
+.app.dark-mode .history-title {
+  color: rgba(224, 224, 224, 0.7);
+}
+
+.app.dark-mode .history-item {
+  background: #282828;
+  color: #E0E0E0;
+}
+
+.app.dark-mode .history-item:hover {
+  background: #3a3a3a;
+}
+
+.app.dark-mode .chat-area {
+  background: #121212;
+}
+
+.app.dark-mode .messages {
+  background: #121212;
+}
+
+.app.dark-mode .message.user {
+  background: #444;
+  color: #E0E0E0;
+}
+
+.app.dark-mode .message.bot {
+  background: #282828;
+  color: #E0E0E0;
+}
+
+.app.dark-mode .input-bar {
+  background: #121212;
+  border-top-color: #333;
+}
+
+.app.dark-mode .input-bar input {
+  background: #282828;
+  color: #E0E0E0;
+  border-color: #555;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.05);
+}
+
+.app.dark-mode .input-bar input:focus {
+  border-color: #6750A4;
+  box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.4);
+}
+
+.app.dark-mode .welcome-message {
+  color: #A37FDB;
+}
+
+.app.dark-mode .pill {
+  background: #333;
+  color: #E0E0E0;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .pill:hover {
+  background: #444;
+}
+
+.app.dark-mode .pill-icon {
+  filter: invert(1);
+}
+
+.game-container {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.game-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.game-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.game-card {
+  background: #f0ebff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.game-card-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #21005D;
+  margin-bottom: 4px;
+}
+
+.game-card-description {
+  font-size: 0.85rem;
+  color: #6750A4;
+}
+
+.app.dark-mode .game-card {
+  background: #282828;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.app.dark-mode .game-card-title {
+  color: #EADDFF;
+}
+
+.app.dark-mode .game-card-description {
+  color: #B69DF8;
+}
+
+.name-prompt-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6750A4, #8e7cc3);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.name-prompt-box {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: #1C1B1F;
+  animation: swoopIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes swoopIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.app.gaming-mode .sidebar {
+  display: none;
+}
+
+.app.gaming-mode .chat-area {
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+}
+
+.animation-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breathing-circle {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+  box-shadow: 0 8px 30px rgba(102, 166, 255, 0.5);
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% { transform: scale(0.85); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(0.85); }
+}
+
+.overlay-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.journal-button {
+  background: #d5baf08f;
+  color: rgb(0, 0, 0);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+  margin-top: 15px;
+   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  animation: scaleFadeIn 0.25s ease forwards;
+  transform-origin: top right;
+}
+
+@keyframes scaleFadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.menu-dropdown button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-dropdown button:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.three-dots-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 999px;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.three-dots-btn span {
+  width: 3px;
+  height: 3px;
+  background: #565656;
+  border-radius: 50%;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.three-dots-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+.app.dark-mode .three-dots-btn span {
+  background: #E0E0E0;
+}
+
+.app.dark-mode .menu-dropdown {
+  background: rgba(40, 40, 40, 0.95);
+}
+
+
+/* =================================================== */
+/* == NEW HOVER-TO-EXPAND SIDEBAR STYLES (NO BUTTON) == */
+/* =================================================== */
+
+/* 1. Default Collapsed State (Icon-Only View) */
+.sidebar {
+  width: 80px; /* Narrow default width */
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden; /* Hide overflowing text */
+}
+
+/* 2. Expanded State on Hover */
+.app:not(.gaming-mode) .sidebar:hover {
+  width: 280px; /* Full width on hover */
+}
+
+/* 3. Make the Chat Area Adjust Smoothly */
+.chat-area {
+  margin-left: 80px; /* Default margin to match collapsed sidebar */
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app:not(.gaming-mode) .sidebar:hover + .chat-area {
+  margin-left: 280px; /* Expanded margin */
+}
+
+/* 4. Handle Text Visibility */
+.sidebar-text {
+  opacity: 0; /* Text is invisible by default */
+  white-space: nowrap; /* Prevent text from wrapping */
+  transition: opacity 0.2s ease;
+  transition-delay: 0.1s; /* Text appears slightly after expand starts */
+}
+
+.sidebar:hover .sidebar-text {
+  opacity: 1; /* Make text visible on hover */
+}
+
+/* 5. Adjust Sidebar Items for Icon-Only View */
+.logo, .new-chat, .journal-button, .history-item {
+  display: flex;
+  align-items: center;
+  padding-left: 25px; /* Center the icon horizontally */
+  gap: 15px;
+   
+  transition: padding-left 0.3s ease;
+}
+.logo{
+  font-size:28px ;
+}
+.new-chat,.journal-button{
+  font-size: 15px;
+}
+.sidebar:hover .logo,
+.sidebar:hover .new-chat,
+.sidebar:hover .journal-button,
+.sidebar:hover .history-item {
+  
+  padding-left: 18px; /* Return to original padding on hover */
+}
+.journal-button:hover{
+    transform: translateY(-2px);
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.history-title {
+  padding-left: 26px;
+  transition: padding-left 0.3s ease;
+}
+.sidebar:hover .history-title {
+  padding-left: 18px;
+}
+/* Styling for the new chat icon */
+.new-chat-icon {
+  width: 22px; /* Adjust size as needed */
+  height: 22px; /* Adjust size as needed */
+  /* This ensures the icon color matches the text color for accessibility and theme */
+  filter: invert(0); 
+  transition: transform 0.2s ease; /* Smooth icon animation */
+}
+
+/* Ensure the icon animates slightly on hover with the button */
+.new-chat:hover .new-chat-icon {
+  transform: scale(1.1);
+}
+
+/* Dark mode adjustment for the new chat icon */
+.app.dark-mode .new-chat-icon {
+  filter: invert(1); /* Make it black or dark in dark mode if needed, or adjust to match background */
+  /* It was originally white on black, so invert(0) makes it black on white. 
+     You might need to adjust this filter or provide a dark mode specific icon if invert(1) doesn't look right. */
+}
+/* =================================================== */
+/* == NEW ANIMATED EMOJI BACKGROUND STYLES == */
+/* =================================================== */
+
+/* 1. Prepare the chat area to contain the animation */
+.chat-area {
+  position: relative; /* This is crucial for positioning the background */
+  overflow: hidden; /* Prevents emojis from spilling outside the area */
+}
+
+/* 2. Style the background container */
+.emoji-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Ensures it stays behind messages and input */
+}
+
+/* 3. Style the individual emojis */
+.emoji-background span {
+  position: absolute;
+  bottom: -50px; /* Start below the screen */
+  font-size: 20px; /* Base size, we will randomize this */
+  opacity: 0; /* Start completely transparent */
+  /* Link to the animation, make it run infinitely */
+  animation: floatUp 15s linear infinite;
+}
+
+/* 4. Define the floating animation */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30%, 70% {
+    /* Fade in and stay visible for most of the journey */
+    opacity: 0.6; 
+  }
+  100% {
+    /* Move up the entire height of the screen and fade out */
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* 5. Randomize each emoji for a natural look! */
+.emoji-background span:nth-child(1) {
+  left: 10%;
+  animation-duration: 15s;
+  animation-delay: 0s;
+  font-size: 50px;
+}
+.emoji-background span:nth-child(2) {
+  left: 20%;
+  animation-duration: 12s;
+  animation-delay: 1.5s;
+  font-size: 30px;
+}
+.emoji-background span:nth-child(3) {
+  left: 30%;
+  animation-duration: 18s;
+  animation-delay: 4s;
+  font-size: 22px;
+}
+.emoji-background span:nth-child(4) {
+  left: 40%;
+  animation-duration: 13s;
+  animation-delay: 2s;
+  font-size: 28px;
+}
+.emoji-background span:nth-child(5) {
+  left: 50%;
+  animation-duration: 16s;
+  animation-delay: 5s;
+  font-size: 30px;
+}
+.emoji-background span:nth-child(6) {
+  left: 60%;
+  animation-duration: 11s;
+  animation-delay: 3.5s;
+  font-size: 24px;
+}
+.emoji-background span:nth-child(7) {
+  left: 70%;
+  animation-duration: 19s;
+  animation-delay: 6s;
+  font-size: 20px;
+}
+.emoji-background span:nth-child(8) {
+  left: 80%;
+  animation-duration: 14s;
+  animation-delay: 2.5s;
+  font-size: 19px;
+}
+.emoji-background span:nth-child(9) {
+  left: 85%;
+  animation-duration: 17s;
+  animation-delay: 7s;
+  font-size: 26px;
+}
+.emoji-background span:nth-child(10) {
+  left: 90%;
+  animation-duration: 13s;
+  animation-delay: 4.5s;
+  font-size: 20px;
+}
+/* =================================================== */
+/* ==   STYLES for Dynamic Mood Indicator               == */
+/* =================================================== */
+
+/* Make sure the chat-area can contain the absolutely positioned indicator */
+.chat-area {
+  position: relative;
+}
+
+.mood-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.mood-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateX(-20px);
+  /* This transition makes the filling animation smooth! */
+  transition: background 0.5s ease-in-out; 
+}
+
+.mood-emoji {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f8f9fb; /* Matches your app's light background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Dark mode adjustment */
+.app.dark-mode .mood-emoji {
+  background-color: #121212; /* Matches your app's dark background */
+}
+/* =================================================== */
+/* ==   STYLES for Toast Notification               == */
+/* =================================================== */
+
+.toast-notification {
+  /* Positioning */
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000; /* Ensure it's on top of everything */
+
+  /* Styling */
+  background: linear-gradient(135deg, #6750A4, #8A2BE2);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  font-weight: 500;
+
+  /* Animation */
+  animation: toast-in-out 4s ease-in-out forwards;
+}
+
+@keyframes toast-in-out {
+  /* Animation starts: move up and fade in */
+  0% {
+    transform: translate(-50%, -100px);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  /* Stays on screen */
+  90% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  /* Animation ends: move up and fade out */
+  100% {
+    transform: translate(-50%, -100px);
+    opacity: 0;
+  }
+}
+.capybara-icon-png {
+    /* Style for the static image to match the video */
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #6750A4; /* This adds the border to the static image */
+}
+.journal-button img {
+    /* Style for the static image to match the video */
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translateX(-px);
+    border: 3px solid #6750A4; /* This adds the border to the static image */
+}
