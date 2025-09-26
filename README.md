@@ -11,7 +11,7 @@ ChillPill AI doesn’t feel like a tool; it feels like a friend who listens, lif
 -   **Mood-Based AI Chat**: Empathetic replies and coping tips based on how you feel.
 -   **Memes & Music**: Mood-tailored memes and songs to lift your spirits.
 -   **Tasks + Memes Combo**: Fun micro-tasks paired with memes (e.g. “Feeling nervous? Deep breaths + Jackie Shroff meme”).
--   **Anonymous Group Discussions**: Connect safely with peers, share and feel heard.
+-   **Anonymous Group Discussions**: Connect safely with peers, share and feel heard(Future).
 -   **Crisis Support & Awareness**: Early warning detection + helplines + stigma-free resources.
 
 ---
