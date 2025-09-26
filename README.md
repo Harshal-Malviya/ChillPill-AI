@@ -5,6 +5,7 @@ A mental wellness companion built for Indian youth — anonymous, empathetic, an
 ChillPill AI doesn’t feel like a tool; it feels like a friend who listens, lifts your mood, and supports you through the ups and downs.
 
 ---
+Access ChillPill AI [Here](https://gen-ai-hackathon-beta.vercel.app/)  
 
 ## 🚀 Features (Unique & Key)
 
